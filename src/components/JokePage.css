@@ -1,0 +1,223 @@
+.bg-container {
+  background-color: black;
+  width: 200vh;
+  margin: 0px;
+}
+
+.joke-form-container {
+  border-color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  padding-bottom: 20px;
+  max-width: 1400px;
+  margin-left: 20px;
+}
+
+.joke-category {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.category-instruction {
+  margin-left: 10px;
+  margin-right: 100px;
+}
+
+.category-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+}
+
+.joke-language {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.language-instruction {
+  margin-left: 10px;
+  margin-right: 178px;
+}
+
+.language-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+}
+
+.language-dropdown {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 100px;
+}
+
+.joke-flag {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.flag-instruction {
+  margin-left: 10px;
+  margin-right: 125px;
+}
+
+.flag-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+}
+
+.joke-format {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.format-instruction {
+  margin-left: 10px;
+  margin-right: 125px;
+}
+
+.format-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+}
+
+.joke-type {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.type-instruction {
+  margin-left: 10px;
+  margin-right: 85px;
+}
+
+.type-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+}
+
+.joke-search {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.search-instruction {
+  margin-left: 10px;
+  margin-right: 105px;
+}
+
+.search-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+}
+
+.joke-range {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.range-instruction {
+  margin-left: 10px;
+  margin-right: 178px;
+}
+
+.range-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+  padding-top: 27px;
+}
+
+.range-from-label {
+  margin-left: 5px;
+}
+
+.range-to-label {
+  margin-left: 5px;
+}
+
+.joke-amount {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 30px;
+}
+
+.amount-instruction {
+  margin-left: 10px;
+  margin-right: 176px;
+}
+
+.amount-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 700px;
+  padding-top: 27px;
+}
+
+.amount-input {
+  margin-bottom: 23px;
+  margin-left: 15px;
+  width: 75px;
+}
+
+span {
+  color: #403d9c;
+}
+
+.button-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 400px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  height: 80px;
+  color: white;
+  padding-left: 10px;
+}
+
+.button {
+  border-width: 0px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  height: 25px;
+  font-weight: 600;
+}
