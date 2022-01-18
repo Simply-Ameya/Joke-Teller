@@ -9,8 +9,6 @@ function JokePage() {
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [flags, setFlags] = useState([]);
   const [selectedFlags, setSelectedFlags] = useState([]);
-  const [formatList, setFormatList] = useState([]);
-  const [selectedFormat, setSelectedFormat] = useState("");
   const [typeList, setTypeList] = useState([]);
   const [selectedType, setSelectedType] = useState([]);
   const [term, setTerm] = useState("");
@@ -38,8 +36,6 @@ function JokePage() {
 
       data && setFlags(data.jokes.flags);
 
-      data && setFormatList(data.formats);
-
       data && setTypeList(data.jokes.types);
 
       data && setRange(data.jokes.idRange);
@@ -47,6 +43,7 @@ function JokePage() {
     fetchData();
   }, []);
   useEffect(() => {
+    const selectedFormat = ''
     let url = "https://v2.jokeapi.dev/joke/";
     if (custom === true) {
       url += "Any";
@@ -123,15 +120,15 @@ function JokePage() {
       }
       url += "idRange=" + minRange + "-" + maxRange;
     }
-    if (amount != 1) {
+    if (amount !== 1) {
       if (
         selectedLanguage === "" &&
         JSON.stringify(selectedFlags) === "[]" &&
         (selectedFormat === "" || selectedFormat === "json") &&
         selectedType.length !== 1 &&
         term === "" &&
-        minRange == 0 &&
-        maxRange == range[selectedLanguage][1]
+        minRange === 0 &&
+        maxRange === range[selectedLanguage][1]
       ) {
         url += "?";
       } else {
@@ -145,7 +142,6 @@ function JokePage() {
     selectedCategory,
     selectedLanguage,
     selectedFlags,
-    selectedFormat,
     selectedType,
     term,
     minRange,
@@ -311,31 +307,7 @@ function JokePage() {
               })}
           </div>
         </div>
-        <div className="joke-format">
-          <div className="format-instruction">
-            <p>
-              Select <span>response format</span>:
-            </p>
-          </div>
-          <div className="format-container">
-            {formatList &&
-              formatList.map((each) => {
-                return (
-                  <label key={formatList.indexOf(each)}>
-                    <input
-                      type="radio"
-                      name="format"
-                      value={each}
-                      onClick={(e) => {
-                        setSelectedFormat(e.target.value);
-                      }}
-                    />
-                    {each}
-                  </label>
-                );
-              })}
-          </div>
-        </div>
+
         <div className="joke-type">
           <div className="type-instruction">
             <p>
@@ -475,7 +447,7 @@ function JokePage() {
               const response = await fetch(url);
               const data = await response.json();
               setDelivery(false);
-              if (amount == 1) {
+              if (amount === 1) {
                 setJokeData(data);
                 if (data.type === "single") {
                   setJoke(data.joke);
@@ -484,7 +456,7 @@ function JokePage() {
                 }
               } else {
                 const jokes = data.jokes.map((each) => {
-                  if (each.type == "twopart") {
+                  if (each.type === "twopart") {
                     return {
                       ...joke,
                       setup: each.setup,
@@ -508,14 +480,28 @@ function JokePage() {
           </div>
           <div className="joke-container">
             {joke}
-            {amount == 1 ? (
+            {amount === 1 ? (
               <>
                 {jokeData.type === undefined || jokeData.type === "single" ? (
                   <></>
                 ) : (
-                  <button onClick={() => setDelivery(true)}>Delivery</button>
+                  <>
+                    {delivery === false ? (
+                      <>
+                        <button onClick={() => setDelivery(true)}>
+                          Delivery
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <p> {jokeData.delivery}</p>
+                        <button onClick={() => setDelivery(false)}>
+                          Undeliver
+                        </button>
+                      </>
+                    )}
+                  </>
                 )}
-                {delivery === false ? <></> : <p> {jokeData.delivery}</p>}
               </>
             ) : (
               <>
@@ -526,23 +512,47 @@ function JokePage() {
                     return (
                       <>
                         <p>{each.setup}</p>
-                        <button
-                          onClick={() => {
-                            setDelivery(true);
-                            const jokes = jokeList.map((eachJoke) => {
-                              if (eachJoke.setup === each.setup) {
-                                return { ...eachJoke, showDelivery: true };
-                              } else {
-                                return { ...eachJoke };
-                              }
-                            });
-                            console.log(jokes);
-                            setJokeList(jokes);
-                          }}
-                        >
-                          delivery
-                        </button>
-                        {each.showDelivery ? <p>{each.delivery}</p> : <></>}
+
+                        {each.showDelivery ? (
+                          <>
+                            <p>{each.delivery}</p>
+                            <button
+                              onClick={() => {
+                                setDelivery(true);
+                                const jokes = jokeList.map((eachJoke) => {
+                                  if (eachJoke.setup === each.setup) {
+                                    return { ...eachJoke, showDelivery: false };
+                                  } else {
+                                    return { ...eachJoke };
+                                  }
+                                });
+                                console.log(jokes);
+                                setJokeList(jokes);
+                              }}
+                            >
+                              undeliver
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => {
+                                setDelivery(true);
+                                const jokes = jokeList.map((eachJoke) => {
+                                  if (eachJoke.setup === each.setup) {
+                                    return { ...eachJoke, showDelivery: true };
+                                  } else {
+                                    return { ...eachJoke };
+                                  }
+                                });
+                                console.log(jokes);
+                                setJokeList(jokes);
+                              }}
+                            >
+                              delivery
+                            </button>
+                          </>
+                        )}
                       </>
                     );
                   }
