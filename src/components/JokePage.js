@@ -31,6 +31,9 @@ function JokePage() {
       const languageData = await languageResponse.json();
 
       data && setCategory(data.jokes.categories.splice(1).sort());
+      setTimeout(() => {
+        console.log("category", category);
+      });
 
       languageData && setLanguageList(languageData.jokeLanguages);
 
@@ -43,7 +46,7 @@ function JokePage() {
     fetchData();
   }, []);
   useEffect(() => {
-    const selectedFormat = ''
+    const selectedFormat = "";
     let url = "https://v2.jokeapi.dev/joke/";
     if (custom === true) {
       url += "Any";
@@ -147,6 +150,8 @@ function JokePage() {
     minRange,
     maxRange,
     amount,
+    custom,
+    range,
   ]);
   const getLanguageNames = (arr) => {
     languageObjectList.current = arr.map((each) => {
@@ -163,12 +168,13 @@ function JokePage() {
       } else if (each === "pt") {
         return { language: "pt", fullName: "Portuguese" };
       }
+      return { language: "en", fullName: "English" };
     });
   };
   getLanguageNames(languageList);
   return (
     <div className="bg-container">
-      .
+      {/* .<div data-testid="Christmas"></div> */}
       <div className="joke-form-container">
         <div className="joke-category">
           <div className="category-instruction">
@@ -186,6 +192,7 @@ function JokePage() {
             <div className="any-container">
               <label>
                 <input
+                  data-testid="any-category"
                   type="radio"
                   name="category"
                   checked={custom}
@@ -196,9 +203,10 @@ function JokePage() {
                 Any
               </label>
             </div>
-            <div className="custom-cnotainer">
+            <div className="custom-container">
               <label>
                 <input
+                  data-testid="custom-category"
                   type="radio"
                   name="category"
                   onClick={() => {
@@ -207,9 +215,14 @@ function JokePage() {
                 />
                 Custom :
               </label>
+
               {category.map((each) => {
                 return (
-                  <label key={category.indexOf(each)}>
+                  <label
+                    className="categories"
+                    data-testid={each}
+                    key={category.indexOf(each)}
+                  >
                     <input
                       value={each}
                       type="checkbox"
@@ -249,16 +262,21 @@ function JokePage() {
           </div>
           <div className="language-container">
             <select
+              data-testid="language-dropdown"
               className="language-dropdown"
               onChange={(e) => {
                 setSelectedLanguage(e.target.value);
-                setMaxRange(range[e.target.value][1]);
+                range[e.target.value] && setMaxRange(range[e.target.value][1]);
               }}
             >
               {languageObjectList.current &&
                 languageObjectList.current.map((each) => {
                   return (
-                    <option key={each.language} value={each.language}>
+                    <option
+                      data-testid="select-option"
+                      key={each.language}
+                      value={each.language}
+                    >
                       {each.language} - {each.fullName}
                     </option>
                   );
@@ -363,6 +381,7 @@ function JokePage() {
           </div>
           <div className="search-container">
             <input
+              data-testid="searching"
               type="text"
               placeholder="(optional)"
               onChange={(e) => {
@@ -387,6 +406,7 @@ function JokePage() {
             <label className="range-from-label">
               From :
               <input
+                data-testid="min-range"
                 type="number"
                 min="0"
                 max="1368"
@@ -399,6 +419,7 @@ function JokePage() {
             <label className="range-to-label">
               To :
               <input
+                data-testid="max-range"
                 type="number"
                 min="0"
                 max={maxRange}
@@ -418,6 +439,7 @@ function JokePage() {
           </div>
           <div className="amount-container">
             <input
+              data-testid="amount"
               className="amount-input"
               type="number"
               min="1"
