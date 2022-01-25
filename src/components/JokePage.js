@@ -126,7 +126,7 @@ function JokePage() {
         selectedType.length !== 1 &&
         term === "" &&
         minRange === 0 &&
-        maxRange === range[selectedLanguage][1]
+        maxRange === (range[selectedLanguage] && range[selectedLanguage][1])
       ) {
         url += "?";
       } else {
@@ -455,6 +455,7 @@ function JokePage() {
             Reset Form
           </button>
           <button
+            data-testid="submit-button"
             className="button"
             onClick={async () => {
               const url = fetchUrl;
