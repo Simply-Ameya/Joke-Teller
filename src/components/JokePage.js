@@ -29,18 +29,13 @@ function JokePage() {
       const languageUrl = "https://v2.jokeapi.dev/languages";
       const languageResponse = await fetch(languageUrl);
       const languageData = await languageResponse.json();
-
       data && setCategory(data.jokes.categories.splice(1).sort());
-      setTimeout(() => {
-        console.log("category", category);
-      });
-
+      // setTimeout(() => {
+      //   console.log("category", category);
+      // });
       languageData && setLanguageList(languageData.jokeLanguages);
-
       data && setFlags(data.jokes.flags);
-
       data && setTypeList(data.jokes.types);
-
       data && setRange(data.jokes.idRange);
     }
     fetchData();
@@ -215,15 +210,11 @@ function JokePage() {
                 />
                 Custom :
               </label>
-
               {category.map((each) => {
                 return (
-                  <label
-                    className="categories"
-                    data-testid={each}
-                    key={category.indexOf(each)}
-                  >
+                  <label className="categories" key={category.indexOf(each)}>
                     <input
+                      data-testid={each}
                       value={each}
                       type="checkbox"
                       name={each}
@@ -297,6 +288,7 @@ function JokePage() {
                 return (
                   <label key={flags.indexOf(each)}>
                     <input
+                      data-testid={each}
                       type="checkbox"
                       name={each}
                       value={each}
@@ -325,7 +317,6 @@ function JokePage() {
               })}
           </div>
         </div>
-
         <div className="joke-type">
           <div className="type-instruction">
             <p>
@@ -338,6 +329,7 @@ function JokePage() {
                 return (
                   <label key={typeList.indexOf(each)}>
                     <input
+                      data-testid={each}
                       type="checkbox"
                       value={each}
                       onChange={(e) => {
@@ -451,7 +443,7 @@ function JokePage() {
           </div>
         </div>
         <div className="button-container">
-          <p>Url : {fetchUrl}</p>
+          <p data-testid="urltest">Url : {fetchUrl}</p>
           <button
             className="button"
             onClick={() => {
@@ -534,7 +526,6 @@ function JokePage() {
                     return (
                       <>
                         <p>{each.setup}</p>
-
                         {each.showDelivery ? (
                           <>
                             <p>{each.delivery}</p>
