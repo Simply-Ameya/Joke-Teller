@@ -333,8 +333,10 @@ describe("JokePage", () => {
       );
       console.log(jokeContainer);
       expect(jokeContainer.childElementCount).toBe(3);
-      if (expect(screen.getByTestId("multi-container")).toBeInTheDocument()) {
-        const multiDeliveryButton = screen.getByTestId("multi-delivery-button");
+      if (expect(screen.getAllByTestId("multi-container").length) > 1) {
+        const multiDeliveryButton = screen.getAllByTestId(
+          "multi-delivery-button"
+        );
         fireEvent.click(multiDeliveryButton);
         const multiDeliveryElement = screen.getByTestId("multi-delivery");
         expect(multiDeliveryElement).toBeInTheDocument();
