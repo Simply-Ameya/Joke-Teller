@@ -255,6 +255,7 @@ function JokePage() {
             <select
               data-testid="language-dropdown"
               className="language-dropdown"
+              value={selectedLanguage}
               onChange={(e) => {
                 setSelectedLanguage(e.target.value);
                 range[e.target.value] && setMaxRange(range[e.target.value][1]);
@@ -470,7 +471,7 @@ function JokePage() {
                   setJoke(data.setup);
                 }
               } else {
-                const jokes = data.jokes.map((each) => {
+                const jokes = await data.jokes.map((each) => {
                   if (each.type === "twopart") {
                     return {
                       ...joke,
@@ -493,23 +494,26 @@ function JokePage() {
           <div className="result-heading-container">
             <h1 className="result-heading">Result</h1>
           </div>
-          <div className="joke-container">
-            {joke}
+          <div data-testid="joke-container" className="joke-container">
             {amount === 1 ? (
               <>
+                <p>{joke}</p>
                 {jokeData.type === undefined || jokeData.type === "single" ? (
                   <></>
                 ) : (
                   <>
                     {delivery === false ? (
                       <>
-                        <button onClick={() => setDelivery(true)}>
+                        <button
+                          data-testid="delivery-button"
+                          onClick={() => setDelivery(true)}
+                        >
                           Delivery
                         </button>
                       </>
                     ) : (
                       <>
-                        <p> {jokeData.delivery}</p>
+                        <p data-testid="joke-delivery">{jokeData.delivery}</p>
                         <button onClick={() => setDelivery(false)}>
                           Undeliver
                         </button>
@@ -525,8 +529,8 @@ function JokePage() {
                     return <p>{each.joke}</p>;
                   } else {
                     return (
-                      <>
-                        <p>{each.setup}</p>
+                      <div data-testid="multi-container">
+                        <p data-testid="multi-delivery">{each.setup}</p>
                         {each.showDelivery ? (
                           <>
                             <p>{each.delivery}</p>
@@ -544,12 +548,13 @@ function JokePage() {
                                 setJokeList(jokes);
                               }}
                             >
-                              undeliver
+                              unDeliver
                             </button>
                           </>
                         ) : (
                           <>
                             <button
+                              data-testid="multi-delivery-button"
                               onClick={() => {
                                 setDelivery(true);
                                 const jokes = jokeList.map((eachJoke) => {
@@ -563,11 +568,11 @@ function JokePage() {
                                 setJokeList(jokes);
                               }}
                             >
-                              delivery
+                              Delivery
                             </button>
                           </>
                         )}
-                      </>
+                      </div>
                     );
                   }
                 })}
